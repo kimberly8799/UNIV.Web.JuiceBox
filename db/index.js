@@ -50,7 +50,7 @@ async function updateUser(id, fields = {}) {
 async function createPost({ authorId, title, content }) {
   try { 
     const { rows: [ post ] } = await client.query(`
-      INSERT INTO posts ( authorId, title, content )
+      INSERT INTO posts ( "authorId", title, content )
       VALUES ($1, $2, $3)
       RETURNING *;
     `, [ authorId, title, content ])
@@ -98,7 +98,7 @@ async function getAllUsers() {
 async function getAllPosts() {
   try {
     const { rows } = await client.query(
-      `SELECT authorId, title, content
+      `SELECT *
       FROM posts;
     `);
   
