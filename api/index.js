@@ -6,17 +6,6 @@ const jwt = require('jsonwebtoken');
 const { getUserById } = require('../db');
 const { JWT_SECRET } = process.env;
 
-apiRouter.use((req, res, next) => {
-  if (req.user) {
-    console.log("User is set:", req.user);
-
-    // const recoveredData = jwt.verify(token, JWT_SECRET);
-    // req.user(recoveredData);
-  }
-
-  next();
-});
-
 //set `req.user`
 apiRouter.use(async (req, res, next) => {
   const prefix = 'Bearer ';
@@ -32,6 +21,7 @@ apiRouter.use(async (req, res, next) => {
 
       if (id) {
         req.user = await getUserById(id);
+        console.log("User is set:", req.user);
         next();
       }
     } catch ({ name, message }) {

@@ -4,8 +4,7 @@ const usersRouter = express.Router();
 // require('dotenv').config();
 // console.log(process.env.JWT_SECRET);
 const jwt = require('jsonwebtoken');
-require('dotenv').config();
-const { JWT_SECRET } = process.env
+const { JWT_SECRET } = process.env;
 
 const { getAllUsers, getUserByUsername, createUser } = require('../db');
 
@@ -39,15 +38,12 @@ usersRouter.post('/login', async (req, res, next) => {
     const user = await getUserByUsername(username);
 
     const token = jwt.sign({
-      username: "albert",
-      password: "bertie99",
-      id: 1
+      id: user.id,
+      username: user.username,
+      password: user.password
     }, JWT_SECRET);
 
-    const recoveredData = jwt.verify(token, JWT_SECRET);
-
-    recoveredData;
-
+    
     if (user && user.password == password) {
       //create token & return to user
       res.send({ 

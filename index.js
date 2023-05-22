@@ -2,7 +2,7 @@ const PORT = 3000;
 const express = require('express');
 const server = express();
 
-// require('dotenv').config();
+require('dotenv').config();
 // console.log(process.env.JWT_SECRET);
 
 const { client } = require('./db');
